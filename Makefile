@@ -1,10 +1,16 @@
 default: help
 
+# Install all dependencies to local environment
 install:
-	pipenv install
+	pipenv install --dev
 
+# Create a new docker container using docker-compose
 container:
 	docker-compose build
+
+# This is just to remember the command, might become a template later
+create-project:
+	docker-compose run app sh -c "django-admin.py startproject app ."
 
 # Display this help
 help:
