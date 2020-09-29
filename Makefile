@@ -8,9 +8,17 @@ install:
 container:
 	docker-compose build
 
+# Performs unit tests
+test:
+	docker-compose run app sh -c "python manage.py test && flake8"
+
 # This is just to remember the command, might become a template later
 create-project:
 	docker-compose run app sh -c "django-admin.py startproject app ."
+
+# Creates migrations for core app
+migrations-core:
+	docker-compose run app sh -c "python manage.py makemigrations core"
 
 # Display this help
 help:
