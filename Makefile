@@ -8,6 +8,10 @@ install:
 container:
 	docker-compose build
 
+# Builds, (re)creates starts and attaches to containers for a service, for all
+start-app:
+	docker-compose up
+
 # Performs unit tests
 test:
 	docker-compose run app sh -c "python manage.py test && flake8"
