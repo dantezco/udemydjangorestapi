@@ -12,6 +12,10 @@ container:
 start-app:
 	docker-compose up
 
+# Stops all related containers running
+stop-app:
+	docker-compose down
+
 # Performs unit tests
 test:
 	docker-compose run app sh -c "python manage.py test && flake8"
@@ -26,16 +30,12 @@ migrations-core:
 
 # Display this help
 help:
-	@echo
-	@echo '  Usage:'
+	@printf '  \033[34mUsage: \033[37m  make <target> [flags...]'
 	@echo ''
-	@echo '              make <target> [flags...]'
-	@echo ''
+	@printf '\033[34m';
 	@echo '  Targets:'
+	@awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?:/{ print "   \033[32m", $$1, "\033[37m", comment }' ./Makefile | column -t -s ':'
 	@echo ''
-	@awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?:/{ print "   ", $$1, comment }' ./Makefile | column -t -s ':' | sort
-	@echo ''
+	@printf '\033[34m';
 	@echo '  Flags:'
-	@echo ''
-	@awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?\?=/{ print "   ", $$1, $$2, comment }' ./Makefile | column -t -s '?=' | sort
-	@echo ''
+	@awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?\?=/{ print "   \033[32m", $$1, "\033[33m", $$2, "\033[37m", comment }' ./Makefile | column -t -s '?='

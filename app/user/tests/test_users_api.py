@@ -1,12 +1,12 @@
 from django.test import TestCase
-from django.contrib.org import get_user_model
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from rest_framework.test import APIClient
 from rest_framework import status
 
 
-CREATE_USER_URL = reverse("users:create")
+CREATE_USER_URL = reverse("user:create")
 
 
 def create_user(**params):
@@ -20,7 +20,7 @@ class PublicUserAPITests(TestCase):
         self.client = APIClient()
 
     def test_create_valid_user_success(self):
-        """Tries to create a users successfully"""
+        """Tries to create a user successfully"""
         payload = {
             'email': 'rem@maiL.com',
             'password': 'shinyhappypeople',
@@ -34,7 +34,7 @@ class PublicUserAPITests(TestCase):
         self.assertNotIn('password', response.data)
 
     def test_user_exists(self):
-        """Fails creating a users that already exists"""
+        """Fails creating a user that already exists"""
         payload = {
             'email': 'rem@maiL.com',
             'password': 'shinyhappypeople',
